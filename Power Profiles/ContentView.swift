@@ -20,7 +20,8 @@ struct ContentView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     Label("On-Battery Profile", systemImage: "battery.50")
                         .font(.largeTitle)
-                    Divider()
+                    
+                        
                     BatteryView()
                 }
                 .padding(15)

@@ -23,93 +23,74 @@ struct BatteryView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(alignment: .leading, spacing: 10) {
                 
+                // Keyboard Settings Section
                 Text("Keyboard Settings")
                     .bold()
                     .font(.title)
-                //Key Brightness
+                
                 HStack {
                     Text("Keyboard Brightness")
+                        .padding(5)
                     Image(systemName: "light.min")
-                    Slider(value: $keyBrightnessOnBatteryDouble)
+                    Slider(value: $keyBrightnessOnBatteryDouble, in: 0...1, step: 0.1)
                     Image(systemName: "light.max")
                 }
-                .padding(10)
-                .padding(.leading, 15)
-                .padding(.trailing, 15)
                 
-            }
-            .background(.quinary, in: RoundedRectangle(cornerRadius: 10))
                 Divider()
-                .padding(.leading, 15)
-                .padding(.trailing, 15)
-            VStack{
-                //DISPLAY RELATED CONTROLS
-                //Screen Brightness
+                
+                // Display Settings Section
                 Text("Display Settings")
                     .bold()
                     .font(.title)
                 
-                
                 HStack {
                     Text("Screen Brightness")
+                        .padding(5)
                     Image(systemName: "sun.min")
-                    Slider(value: $screenBrightnessOnBatteryDouble)
+                    Slider(value: $screenBrightnessOnBatteryDouble, in: 0...1, step: 0.1)
                     Image(systemName: "sun.max")
-                        .padding(.leading, 15)
-                        .padding(.trailing, 15)
                 }
-                .padding(10)
-                .padding(.leading, 15)
-                .padding(.trailing, 15)
-                Divider()
-                    .padding(.leading, 15)
-                    .padding(.trailing, 15)
                 
+//                Divider()
                 
-                //HDR
                 HStack {
                     Text("HDR Playback")
+                        .padding(5)
                     Image(systemName: "sparkles.tv")
-                    Toggle(isOn: $HDRisOn) {
-                    }
+                    Toggle(isOn: $HDRisOn) {}
                 }
-                .padding(10)
-                Divider()
-                    .padding(.leading, 15)
-                    .padding(.trailing, 15)
                 
-                //TrueTone
+//                Divider()
+                
                 HStack {
                     Text("TrueTone")
+                        .padding(5)
                     Image(systemName: "sun.haze")
-                    Toggle(isOn: $TrueToneisOn) {
-                    }
+                    Toggle(isOn: $TrueToneisOn) {}
                 }
-                .padding(10)
-                Divider()
-                    .padding(.leading, 15)
-                    .padding(.trailing, 15)
                 
-                //DarkMode
+//                Divider()
+                
                 HStack {
                     Text("Dark Mode")
-                    if(darkMode == true) {
+                        .padding(5)
+                    if darkMode == true {
                         Image(systemName: "lightswitch.on.fill")
                     } else {
                         Image(systemName: "lightswitch.off.fill")
                     }
                     
-                    Toggle(isOn: $darkMode) {
-                    }
+                    Toggle(isOn: $darkMode) {}
                 }
                 
-                .padding(10)
-                Divider()
+//                Divider()
                 
                 HStack {
-                    Picker(selection: $selectedRefreshRate, label: Text("Refresh Rate")) {
+                    Text("Refresh Rate")
+                        .padding(5)
+                    Picker(selection: $selectedRefreshRate, label: Text("")) {
                         Text(hzArray[0]).tag(0)
                         Text(hzArray[1]).tag(1)
                         Text(hzArray[2]).tag(2)
@@ -117,43 +98,53 @@ struct BatteryView: View {
                         Text(hzArray[4]).tag(4)
                         Text(hzArray[5]).tag(5)
                     }
-                    .pickerStyle(.menu)
+                    .pickerStyle(.segmented)
                 }
                 
-                .padding(10)
-            }
-            .background(.quinary, in: RoundedRectangle(cornerRadius: 10))
                 Divider()
-            VStack{
-                HStack{
+                
+                // System Features Section
+                Text("System Features")
+                    .bold()
+                    .font(.title)
+                
+                HStack {
                     Text("Bluetooth")
-                    Image(nsImage:btblack)
-                    Toggle(isOn: $BlueToothIsOn){
+//                        .padding(5)
+                    Image(nsImage: btblack)
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                    Toggle(isOn: $BlueToothIsOn) {}
+                }
+                
+//                Divider()
+                
+                HStack {
+                    Text("Siri Suggestions")
+                        .padding(5)
+                    Image(systemName: "siri")
+                    Toggle(isOn: $SiriIsOn) {
+                        
                     }
                 }
-                .padding(10)
                 
-                HStack{
-                    Text("Siri Suggestions")
-                    Image(systemName: "siri")
-                    Toggle(isOn: $SiriIsOn){}
-                }
-                .padding(10)
+//                Divider()
                 
-                
-                HStack{
+                HStack {
                     Text("Low Power Mode")
+                        .padding(5)
                     Image(systemName: "battery.25percent")
                         .foregroundStyle(.yellow, .black)
-                    
                     Toggle(isOn: $LowPowerModeIsOn) {
                         
                     }
                 }
-                .padding(10)
-            }}}
+            }
+            .padding()
+            .background(.quinary.opacity(0.5), in: RoundedRectangle(cornerRadius: 10))
+        }
     }
-
+}
 
 #Preview {
     BatteryView()
